@@ -9,8 +9,11 @@ public interface StoreService{
     //method untuk mendapatkan data semua store yang tersimpan
     List<StoreModel> getStoreList();
     //method untuk mendapatkan data store berdasarkan id
-    StoreModel getStoreById(String idStore);
-    //method untuk menghapus store
-    void deleteStore(String idStore);
+    StoreModel getStoreById(Long idStore);
+    //method untuk mengubah data store
+    StoreModel changeStore(StoreModel storeModel);
+    //method untuk delete data store
+    void deleteStore(Long idStore);
+	StoreModel getStoreByIdLink(Long idStore);
     
 }

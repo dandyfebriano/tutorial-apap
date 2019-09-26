@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Add Store </title>
+</head>
+<body>
+    <h2> Hello! </h2>
+    <h3> Tambah Store </h3>
+    <form th:action="@{/store/add}" th:objecct="${store}" method="POST">
+    <input type="hidden" th:field="${store.followers}"/>
+    nama: <br>
+    <input type="text" name="nama"/>
+    <br>
+    Keterangan:<br>
+    <input type="text" name="keterangan"/>
+    <br>
+
+    <button type="submit"> Submit </button>
+    </form>
+</body>
+</html>

@@ -1,13 +1,13 @@
-package apap.tutorial.shapee.service;
+/**package apap.tutorial.shapee.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
 import apap.tutorial.shapee.model.StoreModel;
 
-@Service
 public class StoreInMemoryService implements StoreService {
     private List<StoreModel> listStore;
 
@@ -16,18 +16,18 @@ public class StoreInMemoryService implements StoreService {
     }
 
     @Override
-    public void addStore(StoreModel store){
+    public void addStore(StoreModel store) {
         listStore.add(store);
     }
 
     @Override
-    public List<StoreModel> getStoreList(){
+    public List<StoreModel> getStoreList() {
         return listStore;
     }
 
     @Override
-    public StoreModel getStoreById(String idStore) {
-        for(StoreModel store : listStore){
+    public Optional<StoreModel> getStoreById(Long idStore) {
+        for(StoreModel store : listStore) {
             if(store.getId().equals(idStore)){
                 return store;
             }
@@ -36,11 +36,17 @@ public class StoreInMemoryService implements StoreService {
     }
 
     @Override
-    public void deleteStore(String idStore){
+    public void deleteStore(Long idStore){
         for(StoreModel store : listStore){
             if(store.getId().equals(idStore)){
                 listStore.remove(store);
             }
         }
     }
-}
+
+    @Override
+    public StoreModel changeStore(StoreModel storeModel) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+}**/
