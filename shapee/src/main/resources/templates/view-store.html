@@ -11,6 +11,22 @@
         <h3 th:text="'Nama  Store: ' + ${store.nama}"></h3>
         <h3 th:text="'Keterangan: ' + ${store.keterangan}"></h3>
         <h3 th:text="'Followers: ' + ${store.followers}"></h3>
+
+        <td> <a th:href="@{/store/change/}+${store.id}"> Change Store </a></td>
+        <td> <a th:href="@{/store/delete/}+${store.id}"> Delete Store </a></td>
+        <h2> Daftar Produk:</h2>
+    
+        <div th:each="product : ${productList}">
+            <h3 th:text="'ID Product : ' + ${product.id}"></h3>
+            <h3 th:text="'Nama: ' + ${product.nama}"></h3>
+            <h3 th:text="'Harga: ' + ${product.harga}"></h3>
+            <h3 th:text="'Deskripsi: ' + ${product.deskripsi}"></h3>
+            <h3 th:text="'Stok: ' + ${product.stok}"></h3>
+            <td> <a th:href="@{/product/change/}+${product.id}"> Change Product </a></td>
+            <td> <a th:href="@{/product/delete/}+${product.id}"> Delete Product </a></td>
+        </br>
+        </div>
+        <td><a th:href="@{/product/add/}+${store.id}"> Add Product </a></td>
     </body>
 
 </html>
