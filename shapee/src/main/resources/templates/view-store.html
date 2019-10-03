@@ -3,30 +3,62 @@
 
     <head>
         <title> View Store </title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
 
     <body>
+        <nav th:replace="fragments/fragment :: navbar('Store')"></nav>
+        <div class ="container-fluid">
         <h2> Informasi Store </h2>
-        <h3 th:text="'ID Store ' + ${store.id}"></h3>
+        <h3 th:text="'ID Store: ' + ${store.id}"></h3>
         <h3 th:text="'Nama  Store: ' + ${store.nama}"></h3>
         <h3 th:text="'Keterangan: ' + ${store.keterangan}"></h3>
         <h3 th:text="'Followers: ' + ${store.followers}"></h3>
 
-        <td> <a th:href="@{/store/change/}+${store.id}"> Change Store </a></td>
-        <td> <a th:href="@{/store/delete/}+${store.id}"> Delete Store </a></td>
+        <form th:action="@{/store/change/}+${store.id}">
+            <button class="btn tbn-sm btn-primary">
+                Change Store
+            </button>
+        </form><br>
         <h2> Daftar Produk:</h2>
-    
-        <div th:each="product : ${productList}">
-            <h3 th:text="'ID Product : ' + ${product.id}"></h3>
-            <h3 th:text="'Nama: ' + ${product.nama}"></h3>
-            <h3 th:text="'Harga: ' + ${product.harga}"></h3>
-            <h3 th:text="'Deskripsi: ' + ${product.deskripsi}"></h3>
-            <h3 th:text="'Stok: ' + ${product.stok}"></h3>
-            <td> <a th:href="@{/product/change/}+${product.id}"> Change Product </a></td>
-            <td> <a th:href="@{/product/delete/}+${product.id}"> Delete Product </a></td>
-        </br>
+        <form th:action="@{/product/delete}" th:object="${store}" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Deskripsi</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product, iterationStatus : *{listProduct}"
+                    th:style="${iterationStatus.even} ? 'color: blue'">
+                    <td th:text="${iterationStatus.count}"> </td>
+                    <td th:text="${product.nama}"> </td>
+                    <td th:text="${product.harga} >= 10000 ? 'diatas 10k' : 'dibawah 10k'"> </td>
+                    <td th:text="${product.deskripsi}"> </td>
+                    <td th:text="${product.stok}"> </td>
+                    <td>
+                        <input type="checkbox" th:field="*{listProduct}" th:value="${product.id}"/>
+                        <label th:for="${#ids.prev('listProduct')}">Hapus</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit"class="btn btn-sm btn-danger">Hapus yang dipilih</button>
+        </form>
+        <br>
+        <form th:action ="@{/product/add/}+${store.id}">
+            <button class = "btn btn-sm btn-primary">
+                Add Product
+            </button>
+        </form>
         </div>
-        <td><a th:href="@{/product/add/}+${store.id}"> Add Product </a></td>
+        
     </body>
 
 </html>

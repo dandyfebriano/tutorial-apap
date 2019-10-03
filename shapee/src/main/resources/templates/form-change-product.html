@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Change Data Product</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
+    <nav th:replace="fragments/fragment :: navbar('Change Product')"></nav>
     <h2>Change Data Product</h2>
         <form th:action="@{/product/change/{productId}(productId=${product.id})}" th:object="${product}" method="POST">
             <input type="hidden" th:field="${product.id}" />

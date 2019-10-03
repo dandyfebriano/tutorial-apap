@@ -73,7 +73,7 @@ public class StoreController{
     }
 
     //API untuk mengakses halaman view store
-    @RequestMapping("/store/view")
+    @RequestMapping(value= "/store/view", method=RequestMethod.GET)
     public String view(
         //Request Parameter untuk di pass
         @RequestParam(value = "idStore") Long idStore, Model model
@@ -85,11 +85,10 @@ public class StoreController{
         }
         else{
         StoreModel store = storeService.getStoreById(idStore);
-        //Add objek store ke "store" untuk dirender
+        
+        List<ProductModel> productList = productService.getListProductOrderByHargaAsc(store.getId());
+        store.setListProduct(productList);
         model.addAttribute("store", store);
-        List<ProductModel> productList = productService.findAllProductByStoreId(store.getId());
-        model.addAttribute("productList", productList);
-        //Return view template view-store
         return "view-store";
         }
     }

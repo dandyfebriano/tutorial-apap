@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-    <head>
-    <title> Error </title>
+
+<head>
+    <title>404 Not Found</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
-    <nav th:replace="fragments/fragment :: navbar('Error delete')"></nav>
-        <h2>Tidak bisa delete store karena masih ada produk</h2>
-    </body>
+    <nav th:replace="fragments/fragment :: navbar('Error500')"></nav>
+    <h2>This page isn't working</h2>
+</body>
 </html>
