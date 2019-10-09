@@ -2,9 +2,12 @@
 <html xmlns:th="http://thymeleaf.org">
     <head>
     <title> Update Product </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
 
     <body>
+        <nav th:replace="fragments/fragment :: navbar('Product')"></nav>
     <h2 th:text=" ${product.nama} + ' berhasil diubah attributenya'"></h2>
     </body>
 </html>

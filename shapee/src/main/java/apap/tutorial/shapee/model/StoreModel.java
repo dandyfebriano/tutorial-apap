@@ -72,5 +72,13 @@ public class StoreModel implements Serializable, Comparable<StoreModel>{
         return getNama().compareTo(store.getNama());
     }
 
+	public void setListProduct(List<ProductModel> productList) {
+        this.listProduct = productList;
+    }
+
+    public List<ProductModel> getListProduct() {
+        return this.listProduct;
+    }
+
 
 }

@@ -1,9 +1,14 @@
 package apap.tutorial.shapee.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +28,46 @@ public class ProductController {
     @Autowired
     StoreService storeService;
 
-    @RequestMapping(value = "product/add/{storeId}", method = RequestMethod.GET)
-    private String addProductFormPage(@PathVariable(value = "storeId") Long storeId, Model model) {
+    @RequestMapping(value = "product/add/{idStore}", method = RequestMethod.GET)
+    private String addProductFormPage(@PathVariable(value = "idStore") Long idStore, Model model) {
         ProductModel product = new ProductModel();
-        StoreModel store = storeService.getStoreById(storeId);
-        product.setStoreModel(store);
 
+        StoreModel store = storeService.getStoreById(idStore);
+        ArrayList<ProductModel> listProduct = new ArrayList<ProductModel>();
+        listProduct.add(product);
+        store.setListProduct(listProduct);
+        model.addAttribute("store",store);
         model.addAttribute("product", product);
         return "form-add-product";
     }
 
-    @RequestMapping(value= "product/add", method = RequestMethod.POST)
-    private String addProductSubmit(@ModelAttribute ProductModel productModel, Model model){
-        productService.addProduct(productModel);
-        model.addAttribute("nama", productModel.getNama());
+    @RequestMapping(value = "product/add/{idStore}" ,params={"addRow"})
+    private String addRow(@ModelAttribute StoreModel store, Model model){
+        if(store.getListProduct() == null){
+            store.setListProduct(new ArrayList<ProductModel>());
+        }
+        store.getListProduct().add(new ProductModel());
+        model.addAttribute("store", store);
+        return "form-add-product";
+    }
+
+    @RequestMapping(value = "product/add/{idStore}", method = RequestMethod.POST, params={"removeRow"})
+    private String removeRow(@PathVariable(value = "idStore") Long idStore, @ModelAttribute StoreModel store, Model model, HttpServletRequest req){
+        Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+        store.getListProduct().remove(rowId.intValue());
+        model.addAttribute("idStore", idStore);
+        model.addAttribute("store", store);
+        return "form-add-product";
+    }
+
+    @RequestMapping(value= "product/add/{idStore}", method = RequestMethod.POST, params={"save"})
+    private String addProductSubmit(@PathVariable(value = "idStore") Long idStore, @ModelAttribute StoreModel store, ModelMap model){
+        StoreModel oldStore = storeService.getStoreById(idStore);
+        model.addAttribute("idStore", idStore);
+        for(ProductModel product : store.getListProduct()){
+            product.setStoreModel(oldStore);
+            productService.addProduct(product);
+        }
         return "add-product";
     }
 
@@ -57,10 +88,11 @@ public class ProductController {
      }
 
      //API yang digunakan untuk menghapus product
-     @RequestMapping(value = "/product/delete/{idProduct}")
-    public String delete(
-        @PathVariable(value = "idProduct") Long idProduct){
-        productService.deleteProduct(idProduct);
+     @RequestMapping(value = "/product/delete", method = RequestMethod.POST)
+    public String delete(@ModelAttribute StoreModel store, Model model){
+        for(ProductModel product :store.getListProduct()){
+            productService.deleteProduct(product);
+        }
         return "delete-product";
     }
 }

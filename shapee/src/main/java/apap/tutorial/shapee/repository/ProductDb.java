@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface ProductDb extends JpaRepository<ProductModel, Long>{
     List<ProductModel> findByStoreModelId(Long storeId);
-    void deleteById(Long id);
+    void delete(ProductModel product);
+    List<ProductModel> findByStoreModelIdOrderByHargaAsc(Long id);
 }

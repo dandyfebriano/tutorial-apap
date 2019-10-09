@@ -1,25 +1,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Add Product </title>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
-    <h3> Tambah Produk</h3>
-    <form th:action="@{/product/add}" th:object="${product}" method="POST">
-        <input type="hidden" th:field="*{storeModel}"/>
-        Nama: <br>
-        <input type="text" name="nama"/>
-        <br>
-        Deskripsi:<br>
-        <input type="text" name="deskripsi"/>
-        <br>
-        Harga: <br>
-        <input type="number" name="harga" />
-        <br>
-        Stok: <br>
-        <input type="number" name="stok" />
-        <br>
-        <button type="submit"> Submit </button>
-    </form>
+    <nav th:replace="fragments/fragment :: navbar('Add Product')"></nav>
+    <h3> Tambah Produk </h3>
+    <form th:action="@{'/product/add/' + ${store.id}}" th:object="${store}" method="POST">
+		<input type="hidden" th:field="*{id}"/>
+		<table>
+			<thead>
+				<tr>
+					<td>Nama</td>
+					<td>Deskripsi</td>
+					<td>Harga</td>
+					<td>Stok</td>
+					<td>
+						<button type="submit" name="addRow">Tambah</button>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product, rowStat : *{listProduct}">
+					<td>
+						<input type="text" name="nama" th:field="*{listProduct[__${rowStat.index}__].nama}" />
+					</td>
+					<td>
+						<input type="text" name="deskripsi" th:field="*{listProduct[__${rowStat.index}__].deskripsi}"  />
+					</td>
+					<td>
+						<input type="number" name="harga" th:field="*{listProduct[__${rowStat.index}__].harga}"  />
+					</td>
+					<td>
+						<input type="number" name="stok" th:field="*{listProduct[__${rowStat.index}__].stok}"  />
+					</td>
+					<td>
+						<button type="submit" name="removeRow" th:value="${rowStat.index}">Hapus</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="submit">
+        	<button type="submit" name="save">Tambah Product</button>    
+        </div>
+	</form>      
 </body>
 </html>
