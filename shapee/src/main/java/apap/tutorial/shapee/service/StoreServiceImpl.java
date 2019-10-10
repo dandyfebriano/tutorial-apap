@@ -47,6 +47,7 @@ public class StoreServiceImpl implements StoreService{
     public void deleteStore(Long idStore){
         storeDb.deleteById(idStore);
     }
+    
     @Override
     public StoreModel getStoreByIdLink(Long idStore){
         List<StoreModel> listStore = getStoreList();

@@ -2,21 +2,19 @@
 ## Authors
 * **<Dandy Febriano>** - *<1706074695>* - *<A>*
 ---
-## Tutorial 4
+## Tutorial 5
 ### What I have learned today
-1. Jelaskan yang anda pelajari dari melakukan latihan nomor 2, dan jelaskan tahapan bagaimana
-anda menyelesaikan latihan nomor 2?
-Untuk menyelesaikan latihan nomor 2,saya mengubah kode di fragment.html dengan menambahkan parameter di tag navbar,sebagai berikut:
- <nav th:fragment="navbar(parameter)" class="navbar navbar-expand-lg navbar-light bg-light">
- <a class="navbar-brand" href="#" th:text="${parameter}"></a>
-Parameter digunakan untuk mengganti nama fitur yang muncul di navigation bar header,yang sebelumnya hanya Navbar menjadi fitur yang kita akan akses,
-Nantinya dinamisnya dapat dengan memanggil tag navbar(parameter) dengan parameter diisi sesuai dengan fitur yang ada di masing-masing html yang dikembalikkan
-2. Jelaskan yang anda pelajari dari latihan nomor 3, dan jelaskan tahapan bagaimana anda
-menyelesaikan latihan nomor 3? 
-Untuk menyelesaikan nomor 3, saya menambah 2 controller untuk 1 page form yaitu untuk menambah form dan menghapus form. Selain itu di form page awal juga saya membuat sebuah list untuk menyimpan product yang diisi di dalam form. Setelah itu di control submit form, saya akan mengiterasi isi dari list yang sudah saya buat untuk disimpan di database. 
-3. Jelaskan perbedaan th:include dan th:replace!
-th:include = fragment akan ditempatkan di dalam div yang memakai th:include
-th:replace = fragment akan mengganti div yang memakai th:replace
-4. Jelaskan bagaimana penggunaan th:object beserta tujuannya!
-digunakan untuk menyimpan data dari formulir sebagai suatu objek sehingga data tersebut dapat mudah dikelola dalam bentuk objek.
 
+1. Jelaskan bagian mana saja dari test yang dibuat pada latihan no 2 adalah given, when, dan and
+then.
+given    : saat inisiasi objek store, membuat list store dan product, dan set objek store dan di line kode when.
+when     : di bagian mockmvc.perform
+and then : di bagian semua .andExpect 
+
+2. Jelaskan perbedaan line coverage dan logic coverage.
+line coverage : mengukur seberapa banyak line kode yang ter-cover oleh test.
+logic coverage :  mengukur apakah test tidak hanya mencapai line tertentu, tetapi hasil yang disimpan juga dipengaruhi oleh operasi yang dilakukan di dalam kode
+
+3. Pada keadaan ideal, apa yang seharusnya dibuat terlebih dahulu, code atau unit test? Mengapa
+seperti itu? Apa akibatnya jika urutannya dibalik, adakah risiko tak terlihat yang mungkin
+terjadi? dalam keadaan ideal, yang seharusnya dibuat adalah unit test, agar code yang kita buat, hasil outputnya benar benar yang kita inginkan dan bekerja sesuai dengan yang kita inginkan. Jika urutannya dibalik, mungkin saja output kodenya benar tapi cara kerjanya bisa saja salah.
