@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDb productDb;
 
@@ -40,7 +41,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductModel getProductById(Long idProduct) {
-        return productDb.findById(idProduct).get();
+        if(productDb.findById(idProduct).isPresent()){
+            return productDb.findById(idProduct).get();
+        }
+        return null;
     }
 
     @Override
@@ -53,5 +57,5 @@ public class ProductServiceImpl implements ProductService{
 		return productDb.findByStoreModelIdOrderByHargaAsc(id);
     }
  
-
+    
 }
