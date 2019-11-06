@@ -17,5 +17,5 @@ Implementasi dari PasswordEncoder yang menggunakan fungsi hashing BCrypt. Kita d
 3. Jelaskan secara singkat apa itu UUID dan mengapa kita memakai UUID di UserModel.java? angka 128-bit yang digunakan untuk mengidentifikasi informasi di dalam sistem. Kita memakai uui di dalam UserModel.java untuk membuat id yang tidak identik di antara user-user.
 
 4.  Apa kegunaan class UserDetailsServiceImpl.java? Mengapa harus ada class tersebut
-padahal kita sudah memiliki class UserRoleServiceImpl.java?
+padahal kita sudah memiliki class UserRoleServiceImpl.java?  Untuk mengambil username dan password dari database. Karena pada class UserServiceImpl belum bisa mendapatkan username dan password tanpa melalui proses otentikasi,sehingga butuh class UserDetailsServiceImpl untuk mengambil atribut user dari database(username user dan password user) yang sudah terotentikasi
 
