@@ -10,6 +10,7 @@
         <nav th:replace="fragments/fragment :: navbar('Home')"></nav>
 
         <div class="container-fluid">
+            <h2 th:text = "${add}"></h2>
             <h2 th:text = "${update}"></h2>
             <h2> Selamat datang di SHAPEE! </h2>
             <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>

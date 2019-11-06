@@ -23,10 +23,17 @@ public class UserController{
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    private String addUserSubmit(@ModelAttribute UserModel user){
-        userService.addUser(user);
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    private String addUserSubmit(@ModelAttribute UserModel user, @RequestParam HashMap<String,String> data, Model model){
+        String password = data.get("password");
+        String add = "GAGAL MENAMBAHKAN USER";
+        if(userService.checkPassword(password)){
+            userService.addUser(user);
+            add = "BERHASIL MENAMBAHKAN USER";
+        }
+        model.addAttribute("add", add);
         return "home";
+        
     }
 
     @RequestMapping(value = "/change-password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
