@@ -27,10 +27,7 @@ public class StoreController{
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/")
-    private String home(){
-        return "home";
-    }
+
 
     //API yang digunakan untuk mengakses halaman add store
     @RequestMapping(value="/store/add", method= RequestMethod.GET)
