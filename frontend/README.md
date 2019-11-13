@@ -1,68 +1,98 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Nomer 1 tutorial
+*** Menambahkan checkbox di bagian Item.js ***
+>> const { item, onChange,checkbox } = props;
+>> {checkbox && <input type="checkbox" checked={checked} onChange={handleChange} />}
+*** Menambahkan checkbox di bagian List.js ***
+>> export default function List({ title, items, onItemClick, checkbox }) {
+>> <Item key={item.id} item={item} onChange={onItemClick} checkbox = {checkbox} />
+*** Menambahkan checkbox di bagian App.js ***
+>> <List
+    checkbox={false}
+    title="Our Menu"
+    items={dummyItems}
+    onItemClick={this.handleItemClickLeft}
+    />
+>> <List
+    checkbox={true}
+    title="My Favorite"
+    items={favItems}
+    onItemClick={this.handleItemClick}
+    />
+Nomer 2 tutorial
+Membuat fungsi baru ,yaitu handleItemClickLeft sebagai berikut:
+handleItemClickLeft = item => {
+ const newItems = [...this.state.favItems];
+ const newItem = {...item };
 
-## Available Scripts
+ const targetInd = newItems.findIndex(it => it.id === newItem.id);
+ if(targetInd < 0) newItems.push(newItem);
+ this.setState({ favItems: newItems });
+}; 
+Yaitu sama seperti handleItemClick, namun menghilangkan else untuk kondisi jika sudah ada favorite pada menu yang di klik,maka menu tersebut(yang sudah ada di favorit) tidak akan hilang dari favorit, karena fungsi dari kolom our menu hanya akan menambahkan menu menjadi favorit dan tidak akan menghapus menu tersebut dari favorit.Kemudian,menaruh fungsi baru tersebut di list yang ada di kolom our menu seperti berikut:
+<List
+ checkbox={false}
+ title="Our Menu" 
+ items={dummyItems}
+ onItemClick={this.handleItemClickLeft}
+ /> 
 
-In the project directory, you can run:
+Nomer 3 tutorial
+Membuat constanta favContent untuk mengecek apakah toggle on atau off di my favorite sedang dinyalakan atau tidak. Jika dinyalakan, maka akan memanggil constanta content,yaitu kode untuk menampilkan daftar favorit.
+- Constanta favContent tersebut sebagai berikut:
+const favContent = this.state.checked ? favItems.length > 0 ?  content : <EmptyState/> :null
 
-### `npm start`
+- Constanta content tersebut sebagai berikut:
+const content = 
+      <div className="col-sm">
+        <List
+          checkbox={true}
+          title="My Favorite"
+          items={favItems}
+          onItemClick={this.handleItemClick}
+        />
+      </div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Lalu memanggil constanta tersebut untuk di return dengan mengecek state dari checkbox favorite
+{ favContent } >> di return () dalam App.js 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Membuat method bernama handleChange() yang berfungsi untuk mengatur state dari toggle checkbox di my favorite.
+handleChange sebagai berikut:
+handleChange() {
+  this.setState({
+    checked: !this.state.checked
+ })
+}
 
-### `npm test`
+Menambahkan kode untuk membuat checkbox my favorite,sebagai berikut di return() App.js
+ <div>
+            <label>Show Favorit</label>
+            <input 
+              type="checkbox" 
+              checked={ this.state.checked } 
+              onChange={ this.handleChange } />
+          </div>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Nomer 4 tutorial
+Membuat EmptyState.js di folder componenents sebagai daftar favorit yang kosong. 
+EmptyState.js tersebut sebagai berikut:
+import React from "react";
+import Item from "./Item";
+export default function EmptyState(){
+    return(
+        <div className="col-sm" style={style.align}>
+            <h3>Belum ada item yang dipilih </h3><br/>
+            <h6>Klik salah satu item di daftar Menu Produk</h6>
+        </div>
+    );
+}
 
-### `npm run build`
+const style = {
+    align : {
+        textAlign:"center"
+    }
+}
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Membuat constanta favContent yang didalamnya berisi pengecekkan ukuran dari favItems. Jika Tidak berisi atau < 0 , maka akan menampilkan EmptyState yang sudah dibuat di Components. Jika favItems berisi atau > 0, maka akan menampilkan content yang ada di tutorial nomer 3.
+Constanta favContent sebagai berikut:
+const contentFav = this.state.checked ? favItems.length > 0 ? content : <EmptyState/> : null
+Pengecekkan ukuran ada pada kode, favItems.length
