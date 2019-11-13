@@ -1,10 +1,8 @@
 Nomer 1 tutorial
 *** Menambahkan checkbox di bagian Item.js ***
->> const { item, onChange,checkbox } = props;
->> {checkbox && <input type="checkbox" checked={checked} onChange={handleChange} />}
+https://user-images.githubusercontent.com/54923649/68777701-aa302680-0664-11ea-81ce-70ac6923111e.PNG
 *** Menambahkan checkbox di bagian List.js ***
->> export default function List({ title, items, onItemClick, checkbox }) {
->> <Item key={item.id} item={item} onChange={onItemClick} checkbox = {checkbox} />
+
 *** Menambahkan checkbox di bagian App.js ***
 >> <List
     checkbox={false}
