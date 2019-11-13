@@ -1,6 +1,6 @@
 Nomer 1 tutorial
 *** Menambahkan checkbox di bagian Item.js ***
-https://user-images.githubusercontent.com/54923649/68777701-aa302680-0664-11ea-81ce-70ac6923111e.PNG
+<img src = https://user-images.githubusercontent.com/54923649/68777701-aa302680-0664-11ea-81ce-70ac6923111e.PNG>
 *** Menambahkan checkbox di bagian List.js ***
 
 *** Menambahkan checkbox di bagian App.js ***
