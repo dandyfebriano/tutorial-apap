@@ -10,7 +10,10 @@
         <nav th:replace="fragments/fragment :: navbar('Home')"></nav>
 
         <div class="container-fluid">
+            <h2 th:text = "${add}"></h2>
+            <h2 th:text = "${update}"></h2>
             <h2> Selamat datang di SHAPEE! </h2>
+            <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser} + ' !'">Login as</h2>
             <button class="btn btn-primary">
                 <a th:href="@{/store/view-all}" style="color : white"> View All Store</a>
             </button>
@@ -39,6 +42,53 @@
                                 <input id="idStore" name="idStore" class="form-control"/>
                                 <br>
                                 <button class="btn btn-primary" type="submit"> Cari </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class = "row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Tambah User baru</div>
+                        <div class="card-body">
+                            <form th:action="@{/user/addUser}" method="POST">
+                                <label>Username</label>
+                                <input type ="text" name="username" class="form-control"/>
+
+                                <label>Password</label>
+                                <input type = "password" name="password" class="form-control"/>
+
+                                <label>Role</label>
+                                <select name="role" class="form-control">
+                                    <option selected value = ""> -- Pilih Role -- </option>
+                                    <option th:each = "roleAvailable : ${listRole}" th:value = "${roleAvailable.id}" th:text = "${roleAvailable.role}"></option>
+                                </select>
+                                <br>
+                                <button type ="submit" class = "btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class = "row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Update Password</div>
+                        <div class="card-body">
+                            <form th:action="@{/user/change-password}" method="POST">
+                                <label>Password Lama</label>
+                                <input type ="text" name="oldPassword" class="form-control"/>
+
+                                <label>Password Baru</label>
+                                <input type = "text" name="newPassword" class="form-control"/>
+
+                                <label>Konfirmasi Password Baru</label>
+                                <input type = "text" name="confirmPassword" class="form-control"/>
+                                <br>
+                                <button type ="submit" class = "btn btn-primary">Simpan</button>
                             </form>
                         </div>
                     </div>
