@@ -3,11 +3,13 @@ import List from "./components/List";
 import dummyItems from "./items.json";
 import EmptyState from './components/EmptyState';
 
+
 export default class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       favItems:[], checked : false
+      ,dark : false
     };
     // this.state = {checked : false}
     this.handleChange = this.handleChange.bind(this);
@@ -17,6 +19,19 @@ export default class App extends React.Component{
     this.setState({
       checked: !this.state.checked
     })
+  }
+
+  setTheme = () => {
+    if(this.state.dark == '#000000'){
+      this.setState({
+        dark: '#ffffff'
+      })
+    }
+    else{
+      this.setState({
+        dark: '#000000'
+      })
+    }
   }
 
   handleItemClick = item =>{
@@ -48,12 +63,14 @@ export default class App extends React.Component{
       />
     </div>
     const fav = this.state.checked ? favItems.length >0 ?content : <EmptyState/> : null;
+
     return(
-      <div className="container-fluid">
+      <div className="container-fluid" style = {{backgroundColor : this.state.dark}}  >
         <h1 className="text-center">
           Welcome!
           <small>Class-based</small>
         </h1>
+        <button type = 'toggle' checked = {this.state.dark} onClick = {this.setTheme}>Ubah</button>
         <div>
         <label>Check</label>
         <input 
